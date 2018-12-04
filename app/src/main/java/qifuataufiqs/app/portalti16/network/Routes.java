@@ -1,5 +1,7 @@
 package qifuataufiqs.app.portalti16.network;
 
+import qifuataufiqs.app.portalti16.entity.DaftarMahasiswa;
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface Routes {
@@ -10,5 +12,5 @@ public interface Routes {
      * http://ti16.herouapp/list.php
      */
     @GET("list.php")
-    void getMahasiswa();
+    Call<DaftarMahasiswa> getMahasiswa();
 }
