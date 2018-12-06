@@ -15,13 +15,16 @@ public interface Routes {
      * Jadikan di deskripsi, berarti:
      * http://ti16.herouapp/list.php
      */
-    @GET("list.php")
+
+    // Melakukan post data mahasiswa baru, jika dideskripsikan berarti di https://herokuapp.com/list_mahasiswa
+    @GET("list_mahasiswa")
     Call<DaftarMahasiswa> getMahasiswa();
 
-    @POST("add.php")
+    // Melakukan post data mahasiswa baru, jika dideskripsikan berarti di https://herokuapp.com/post_mahasiswa
+    @POST("post_mahasiswa")
     @FormUrlEncoded
     Call<Mahasiswa> postMahasiswa(
-            @Field("nama") String nama,
-            @Field("nim") String nim
+            @Field("Sukmo Afri Ardi Saputro") String nama,
+            @Field("0110216060") String nim
     );
 }

@@ -9,7 +9,7 @@ public class Network {
         return new Retrofit.Builder()
 
                 // Melakukan url dari web servies yang tersedia
-                .baseUrl("https://ti16.herouapp.com/")
+                .baseUrl("https://ti16-api.herouapp.com/")
 
                 // Melakukan konversi dari json string ke java object
                 .addConverterFactory(GsonConverterFactory.create())

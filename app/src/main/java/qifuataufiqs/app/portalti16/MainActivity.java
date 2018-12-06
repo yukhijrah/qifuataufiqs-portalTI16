@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestDaftarMahasiswa() {
 
-        // Pertama, untuk memanggil request() dari retrofit yang sudah dibuat
+        // Memanggil request() dari retrofit yang sudah dibuat
         Routes services = Network.request().create(Routes.class);
 
         // Melakukan request terhadap getMahasiswa()
