@@ -11,7 +11,7 @@ import retrofit2.http.POST;
 public interface Routes {
 
     /**
-     * Mendifinisikan route dari web services yang tersedia
+     * Mendefinisikan route dari web services yang tersedia
      * Jadikan di deskripsi, berarti:
      * http://ti16.herouapp/list.php
      */
@@ -19,6 +19,12 @@ public interface Routes {
     // Melakukan post data mahasiswa baru, jika dideskripsikan berarti di https://herokuapp.com/list_mahasiswa
     @GET("list_mahasiswa")
     Call<DaftarMahasiswa> getMahasiswa();
+
+    /**
+     * Mendefinisikan route dari web services yang tersedia
+     * Jadikan di deskripsi berarti:
+     * https://ti16.herokuapp.com/add.php
+     */
 
     // Melakukan post data mahasiswa baru, jika dideskripsikan berarti di https://herokuapp.com/post_mahasiswa
     @POST("post_mahasiswa")

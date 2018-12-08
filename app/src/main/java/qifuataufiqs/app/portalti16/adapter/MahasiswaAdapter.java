@@ -21,10 +21,10 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
 
     @Override
     public MahasiswaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_mahasiswa, parent, false);
-        MahasiswaHolder holder = new MahasiswaHolder(view);
-        return holder;
+        final MahasiswaHolder mahasiswaHolder = new MahasiswaHolder(itemView);
+        return mahasiswaHolder;
     }
 
     @Override
