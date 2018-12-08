@@ -30,7 +30,7 @@ public interface Routes {
     @POST("post_mahasiswa")
     @FormUrlEncoded
     Call<Mahasiswa> postMahasiswa(
-            @Field("Sukmo Afri Ardi Saputro") String nama,
-            @Field("0110216060") String nim
+            @Field("name") String nama,
+            @Field("nim") String nim
     );
 }

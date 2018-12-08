@@ -1,8 +1,15 @@
 package qifuataufiqs.app.portalti16.entity;
 
-public class Mahasiswa {
+import java.io.Serializable;
+
+public class Mahasiswa implements Serializable {
     private String name;
     private String nim;
+
+    public Mahasiswa(String name, String nim) {
+        this.name = name;
+        this.nim = nim;
+    }
 
     public String getName() {
         return name;

@@ -31,7 +31,7 @@ public class AddMahasiswaActivity extends AppCompatActivity {
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String nama = edtNama.getText().toString();
                 String nim = edtNim.getText().toString();
                 addNewMahasiswa(nama, nim);
@@ -46,20 +46,18 @@ public class AddMahasiswaActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Mahasiswa> call, Response<Mahasiswa> response) {
                 if (response.isSuccessful()){
-                    finish();//kembalik ke aktifitas sebelumnya
+                    //kembalik ke aktifitas sebelumnya
+                    finish();
                 } else {
-                    onErrorMahasiswa();
+                    Toast.makeText(AddMahasiswaActivity.this, "Afwan, terjadinya kesalahan", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(Call<Mahasiswa> call, Throwable t) {
-                onErrorMahasiswa();
+            public void onFailure(Call<Mahasiswa> call, Throwable tgit) {
+                Toast.makeText(AddMahasiswaActivity.this, "Afwan, terjadinya kesalahan", Toast.LENGTH_SHORT).show();
             }
-        });
-    }
 
-    private void onErrorMahasiswa() {
-        Toast.makeText(AddMahasiswaActivity.this, "Afwan, terjadinya kesalahan", Toast.LENGTH_SHORT).show();
+        });
     }
 }
 

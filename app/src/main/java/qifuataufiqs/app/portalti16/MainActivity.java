@@ -70,16 +70,12 @@ public class MainActivity extends AppCompatActivity {
                     MahasiswaAdapter adapter = new MahasiswaAdapter(mahasiswas.getData());
 
                     lstMahasiswa.setAdapter(adapter);
-                } else {
-
-                    // Ketika ada tidak berhasol di load
-                    onMahasiswaError();
                 }
             }
 
             @Override
             public void onFailure(Call<DaftarMahasiswa> call, Throwable t) {
-
+                onMahasiswaError();
             }
         });
     }

@@ -14,6 +14,6 @@ public class MahasiswaHolder extends RecyclerView.ViewHolder {
     public MahasiswaHolder(View itemView) {
         super(itemView);
         txtNama = (TextView) itemView.findViewById(R.id.txt_nama);
-        txtNama = (TextView) itemView.findViewById(R.id.txt_nim);
+        txtNim = (TextView) itemView.findViewById(R.id.txt_nim);
     }
 }
