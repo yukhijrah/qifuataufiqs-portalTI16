@@ -1,5 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:targetSandboxVersion="1"
     package="qifuataufiqs.app.portalti16">
 
     <uses-permission android:name="android.permission.INTERNET"/>

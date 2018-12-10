@@ -64,18 +64,20 @@ public class MainActivity extends AppCompatActivity {
                     DaftarMahasiswa mahasiswas = response.body();
 
                     // Mendapatkan gelar
-                    Log.d("qifuataufiqs", mahasiswas.getTitle());
+                    Log.d("TI16", mahasiswas.getTitle());
 
                     // Tampilkan daftar mahasiswa di recyclerview
                     MahasiswaAdapter adapter = new MahasiswaAdapter(mahasiswas.getData());
 
                     lstMahasiswa.setAdapter(adapter);
+                } else {
+                    onMahasiswaError();
                 }
             }
 
             @Override
             public void onFailure(Call<DaftarMahasiswa> call, Throwable t) {
-                onMahasiswaError();
+
             }
         });
     }
