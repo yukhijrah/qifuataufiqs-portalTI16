@@ -1,8 +1,10 @@
 package qifuataufiqs.app.portalti16;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import qifuataufiqs.app.portalti16.adapter.MahasiswaAdapter;
 import qifuataufiqs.app.portalti16.entity.DaftarMahasiswa;
+import qifuataufiqs.app.portalti16.entity.Mahasiswa;
 import qifuataufiqs.app.portalti16.network.Network;
 import qifuataufiqs.app.portalti16.network.Routes;
 import retrofit2.Call;
@@ -23,8 +26,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView lstMahasiswa;
-    Button btnMahasiswa;
+    // Deklarasikan recyclerviewnya
+    private RecyclerView lstMahasiswa;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,19 +37,23 @@ public class MainActivity extends AppCompatActivity {
         // Casting recyclerview - nya dari ID lst_mahasiswa yang ada di activity_main
         lstMahasiswa = (RecyclerView) findViewById(R.id.lst_mahasiswa);
 
-        // Set layout manager untuk lstMahasiswa
-        lstMahasiswa.setLayoutManager(new LinearLayoutManager(this));
+        // Set Layout Manager untuk lstMahasiswa
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lstMahasiswa.setLayoutManager(linearLayoutManager);
 
-        btnMahasiswa = (Button) findViewById(R.id.btn_to_add);
-
-        requestDaftarMahasiswa();
+        // RequestDaftarMahasiswa();
+        findViewById(R.id.btn_to_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddMahasiswaActivity.class));
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         requestDaftarMahasiswa();
-        onButtonMahasiswa();
     }
 
     @Override
@@ -72,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void requestDaftarMahasiswa() {
 
         // Memanggil request() dari retrofit yang sudah dibuat
-        Routes services = Network.request().create(Routes.class);
+        final Routes services = Network.request().create(Routes.class);
 
         // Melakukan request terhadap getMahasiswa()
         services.getMahasiswa().enqueue(new Callback<DaftarMahasiswa>() {
@@ -86,20 +93,34 @@ public class MainActivity extends AppCompatActivity {
                     DaftarMahasiswa mahasiswas = response.body();
 
                     // Mendapatkan gelar
-                    Log.d("TI16", mahasiswas.getTitle());
+                    Log.d("qifuataufiqs", mahasiswas.getTitle());
 
                     // Tampilkan daftar mahasiswa di recyclerview
                     MahasiswaAdapter adapter = new MahasiswaAdapter(mahasiswas.getData());
 
+                    // Menghandel tompol hapus di item_mahasiswa, fungsinya untuk menghapus data yang ada di API
+                    adapter.setListener(new MahasiswaAdapter.MahasiswaListener() {
+                        @Override
+                        public void onDelete(int mhsId) {
+
+                            // Konversi int ke string
+                            String id = String.valueOf(mhsId);
+                            deleteMahasiswa(services, id);
+                        }
+                    });
+
                     lstMahasiswa.setAdapter(adapter);
                 } else {
+
+                    // Ketika data tidak berhasil di load
                     onMahasiswaError();
                 }
             }
 
             @Override
             public void onFailure(Call<DaftarMahasiswa> call, Throwable t) {
-
+                // Ketika data tidak berhasil di load
+                onMahasiswaError();
             }
         });
     }
@@ -111,13 +132,36 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
     }
 
-    private void onButtonMahasiswa() {
-        btnMahasiswa.setOnClickListener(new View.OnClickListener() {
+    private void deleteMahasiswa(final Routes servies, final String mhsId) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.app_name);
+        alert.setMessage("Apakah kamu yakin?");
+        alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent pindah = new Intent(MainActivity.this, AddMahasiswaActivity.class);
-                startActivity(pindah);
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
+        alert.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                servies.deleteMahasiswa(mhsId).enqueue(new Callback<Mahasiswa>() {
+                    @Override
+                    public void onResponse(Call<Mahasiswa> call, Response<Mahasiswa> response) {
+                        if(response.isSuccessful()) {
+                            requestDaftarMahasiswa();
+                        } else {
+                            onMahasiswaError();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Mahasiswa> call, Throwable t) {
+                        onMahasiswaError();
+                    }
+                });
+            }
+        });
+        alert.show();
     }
 }

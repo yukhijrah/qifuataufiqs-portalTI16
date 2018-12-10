@@ -14,9 +14,14 @@ import qifuataufiqs.app.portalti16.holder.MahasiswaHolder;
 public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
 
     private List<Mahasiswa> mahasiswas;
+    private MahasiswaListener listener;
 
     public MahasiswaAdapter(List<Mahasiswa> mahasiswas) {
         this.mahasiswas = mahasiswas;
+    }
+
+    public void setListener(MahasiswaListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -28,13 +33,25 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MahasiswaHolder holder, int position) {
+    public void onBindViewHolder(MahasiswaHolder holder, final int position) {
         holder.txtNama.setText(mahasiswas.get(position).getName());
         holder.txtNim.setText(mahasiswas.get(position).getNim());
+
+        // Menambahkan Tombol Hapus
+        holder.btnHapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onDelete(mahasiswas.get(position).getId());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mahasiswas.size();
+    }
+
+    public interface MahasiswaListener {
+        void onDelete(int mhsId);
     }
 }

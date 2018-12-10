@@ -27,7 +27,7 @@ public class AddMahasiswaActivity extends AppCompatActivity {
         //casting untuk semua view
         edtNama = (EditText) findViewById(R.id.edt_name);
         edtNim = (EditText) findViewById(R.id.edt_nim);
-        btnAdd = (Button) findViewById(R.id.btn_add);
+        btnAdd = (Button) findViewById(R.id.btn_to_add);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,8 @@ public class AddMahasiswaActivity extends AppCompatActivity {
         });
     }
     private void onErrorMahasiswa(){
-        Toast.makeText(AddMahasiswaActivity.this, "Afwan, terjadinya kesalahan", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddMahasiswaActivity.this,
+                "Afwan, terjadinya kesalahan", Toast.LENGTH_SHORT).show();
     }
 }
 
