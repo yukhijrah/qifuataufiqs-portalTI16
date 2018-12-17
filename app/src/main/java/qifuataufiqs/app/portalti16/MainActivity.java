@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import qifuataufiqs.app.portalti16.adapter.MahasiswaAdapter;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_to_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddMahasiswaActivity.class));
+                startActivity(new Intent(MainActivity.this, DetailMahasiswaActivity.class));
             }
         });
     }

@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AddMahasiswaActivity"
+        <activity android:name=".DetailMahasiswaActivity"
             android:parentActivityName=".MainActivity"/>
     </application>
 </manifest>

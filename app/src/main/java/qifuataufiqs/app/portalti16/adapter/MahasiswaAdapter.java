@@ -1,5 +1,7 @@
 package qifuataufiqs.app.portalti16.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +9,11 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import qifuataufiqs.app.portalti16.DetailMahasiswaActivity;
 import qifuataufiqs.app.portalti16.R;
 import qifuataufiqs.app.portalti16.entity.Mahasiswa;
 import qifuataufiqs.app.portalti16.holder.MahasiswaHolder;
+import qifuataufiqs.app.portalti16.util.Consts;
 
 public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
 
@@ -28,8 +32,23 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
     public MahasiswaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_mahasiswa, parent, false);
-        MahasiswaHolder mahasiswaHolder = new MahasiswaHolder(view);
-        return mahasiswaHolder;
+        final MahasiswaHolder holder = new MahasiswaHolder(view);
+
+        final Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mendefinisikan position untuk getMahasiswa.
+                int adapterPosition = holder.getAdapterPosition();
+                Mahasiswa mahasiswa = mahasiswas.get(adapterPosition);
+
+                Intent detailIntent = new Intent(context, DetailMahasiswaActivity.class);
+                detailIntent.putExtra("mahasiswa", mahasiswa);
+                detailIntent.putExtra(Consts.KEY_ACTION_DETAIL, Consts.INTENT_EDIT);
+                context.startActivity(detailIntent);
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -37,11 +56,12 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
         holder.txtNama.setText(mahasiswas.get(position).getName());
         holder.txtNim.setText(mahasiswas.get(position).getNim());
 
-        // Menambahkan Tombol Hapus
-        holder.btnHapus.setOnClickListener(new View.OnClickListener() {
+        final Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onDelete(mahasiswas.get(position).getId());
+                Intent detailIntent = new Intent(context, DetailMahasiswaActivity.class);
+                context.startActivity(detailIntent);
             }
         });
     }
