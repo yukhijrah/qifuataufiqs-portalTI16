@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import qifuataufiqs.app.portalti16.entity.DaftarMahasiswa;
 import qifuataufiqs.app.portalti16.entity.Mahasiswa;
 import qifuataufiqs.app.portalti16.network.Network;
 import qifuataufiqs.app.portalti16.network.Routes;
+import qifuataufiqs.app.portalti16.util.Consts;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_to_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, DetailMahasiswaActivity.class));
+                Intent addIntent = new Intent(MainActivity.this, DetailMahasiswaActivity.class);
+                addIntent.putExtra(Consts.KEY_ACTION_DETAIL, Consts.INTENT_ADD);
+                startActivity(addIntent);
             }
         });
     }

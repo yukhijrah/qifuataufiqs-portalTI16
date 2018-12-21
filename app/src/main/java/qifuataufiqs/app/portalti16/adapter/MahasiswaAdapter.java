@@ -55,15 +55,6 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaHolder> {
     public void onBindViewHolder(MahasiswaHolder holder, final int position) {
         holder.txtNama.setText(mahasiswas.get(position).getName());
         holder.txtNim.setText(mahasiswas.get(position).getNim());
-
-        final Context context = holder.itemView.getContext();
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent detailIntent = new Intent(context, DetailMahasiswaActivity.class);
-                context.startActivity(detailIntent);
-            }
-        });
     }
 
     @Override
